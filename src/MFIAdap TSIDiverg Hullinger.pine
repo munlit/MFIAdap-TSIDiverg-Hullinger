@@ -70,23 +70,23 @@ AmeTrGrayNickel							= #F1F1F1								// AmeritradeGrayNickel
 	// AmeTrPurpleEggPlant						= #732181								// AmeritradePurpleEggPlant
 
 /// ─── Axi ───
-	// AxiPrimary								= #fc404d								// AxiPrimary
-	// AxiSecondary								= #282424								// AxiSecondary
+	// AxiPrimary								= #fc404d								// AxiPrimary				/// ► ◄ ▲ ▼
+	// AxiSecondary								= #282424								// AxiSecondary				/// ↑ ↓ → ←
 	// AxiAccent								= #61ce70								// AxiAccent
-	// Axi7a46f22								= #d11c36								// Axi7a46f22
-	// Axi1519066c								= #fc404d								// Axi1519066c
-	// Axi3d4fa1a1								= #f0ebe3								// Axi3d4fa1a1
-	// Axi638b46c1								= #fcd758								// Axi638b46c1
-	// Axid07bac9								= #f9b4a8								// Axid07bac9
-	// Axie63a114								= #2c4d5a								// Axie63a114
-	// Axi8bf0845								= #a4d866								// Axi8bf0845
-	// Axi75c6da1								= #282424								// Axi75c6da1
-	// Axi378280f								= #45c2c7								// Axi378280f
-	// Axi4de92c5								= #6caddf								// Axi4de92c5
-	// Axi413dab8			   					= #00275d					            // Axi413dab8
+	// Axi7a46f22								= #d11c36								// Axi7a46f22				/// @|1↓→9|1→5|.-|_789_|	/// coint|1↓→6|1→6|.-|_47_|
+	// Axi1519066c								= #fc404d								// Axi1519066c				/// @|1↓→6|1↓→6|!|_7_|		/// coint|1↓→9|1→4|.!|_4_|
+	// Axi3d4fa1a1								= #f0ebe3								// Axi3d4fa1a1				/// @|1↓→9|1↓→9|!|_7_|		/// coint|1↓→9|1→6|.-|_1_|		/// ok|1↓→6|1→5|.-|_147_|		/// |1↓→9|1→4|.!|_4_|
+	// Axi638b46c1								= #fcd758								// Axi638b46c1				/// @|1→↑12|.-|_147_|
+	// Axid07bac9								= #f9b4a8								// Axid07bac9				/// @|1→↑12|.-|_741_|
+	// Axie63a114								= #2c4d5a								// Axie63a114				/// @|1→↑12|.-|_852_|		/// gt|1→↑10|.-|_52_|			/// zoo|1→↑10|.-|_82_|			/// |1→↑11|.-|_82_|
+	// Axi8bf0845								= #a4d866								// Axi8bf0845				/// @|1→↑12|.-|_852_|		/// thinkors|1→↑9|_8_|2|		/// book|1→↑9|_8_|2|			/// disc|1→↑10|.-|_63_|
+	// Axi75c6da1								= #282424								// Axi75c6da1				/// @|1→↑12|.-|_963_|		/// lbx|1→↑11|.-|852|
+	// Axi378280f								= #45c2c7								// Axi378280f				/// @|1↓→9|1→6|.|_4_|		/// ok|1↓→6|1→4|.!|_789_|
+	// Axi4de92c5								= #6caddf								// Axi4de92c5				/// @|1→↑13|.-!|_963_|		/// exch|1→↑10|.-|_85_|
+	// Axi413dab8			   					= #00275d								// Axi413dab8											/// hotm|1→↑10|.-|_7_|			/// ins|1→↑10|.-|_95_|
 	// Axib3fab89								= #55165c								// Axib3fab89
-	// Axi548138f								= #45c2c7								// Axi548138f
-	// Axi5ed9920								= #ea1616								// Axi5ed9920
+	// Axi548138f								= #45c2c7								// Axi548138f				/// ► ◄ ▲ ▼
+	// Axi5ed9920								= #ea1616								// Axi5ed9920				/// ↑ ↓ → ←
 	// Axi70f7335								= #dd0606								// Axi70f7335
 
 /// ─── GrayScale ───
@@ -94,7 +94,7 @@ AmeTrGrayNickel							= #F1F1F1								// AmeritradeGrayNickel
 	// GraySWhite								= #fff									// GrayScaleWhite
 	// GraySBlack								= #000									// GrayScaleBlack
 	// GraySPrimaryBlackberry					= #2e234b								// GrayScalePrimaryBlackberry
-	// GraySPrimaryBlackberry40					= rgba(46, 35, 75, .4))			    	// GrayScalePrimaryBlackberry40
+	// GraySPrimaryBlackberry40					= rgba(46, 35, 75, .4))					// GrayScalePrimaryBlackberry40
 	// GraySPrimaryBlackberry65					= rgba(46, 35, 75, .65))				// GrayScalePrimaryBlackberry65
 	// GraySPrimaryCoral						= #ffb198								// GrayScalePrimaryCoral
 	// GraySSecondaryForestGreen				= #244024								// GrayScaleSecondaryForestGreen
@@ -111,8 +111,8 @@ AmeTrGrayNickel							= #F1F1F1								// AmeritradeGrayNickel
 	// GrayShoverGray							= #827b93								// GrayScalehoverGray
 	// GrayShoverGray2							= #6d6581								// GrayScalehoverGray2
 	// GraySgrayCharcoal						= #282525								// GrayScalegrayCharcoal
-	// GraySgrayCharcoal70						= rgba(40, 37, 37, .7))			    	// GrayScalegrayCharcoal70
-	// GraySgrayCharcoal80						= rgba(40, 37, 37, .8))			    	// GrayScalegrayCharcoal80
+	// GraySgrayCharcoal70						= rgba(40, 37, 37, .7))					// GrayScalegrayCharcoal70
+	// GraySgrayCharcoal80						= rgba(40, 37, 37, .8))					// GrayScalegrayCharcoal80
 	// GraySgrayLight							= #f5f5f5								// GrayScalegrayLight
 	// GraySgrayMedium							= #eee									// GrayScalegrayMedium
 	// GraySgray70								= #696666								// GrayScalegray70
@@ -178,19 +178,19 @@ AmeTrGrayNickel							= #F1F1F1								// AmeritradeGrayNickel
 	// IntAcTertiaryDark40						= hsla(202, 76%, 0%, 1.0)				// InteractiveTertiaryDark40
 
 /// ─── Visa ───
-	// VisPrimary								= #1434CB								// VisaBrandPrimary
-	// VisPrimaryLight							= #3B57DE								// VisaBrandPrimaryLight
+	// VisPrimary								= #1434CB								// VisaBrandPrimary			/// ► ◄ ▲ ▼
+	// VisPrimaryLight							= #3B57DE								// VisaBrandPrimaryLight	/// ↑ ↓ → ←
 	// VisPrimaryDark							= #021E4C								// VisaBrandPrimaryDark
-	// VisSecondary								= #FCC015								// VisaBrandSecondary
-	// VisSecondaryLight						= #FFD700								// VisaBrandSecondaryLight
-	// VisSecondaryDark							= #F7B600								// VisaBrandSecondaryDark
-	// VisTertiary7								= #2C2C2C								// VisaBrandTertiary7
-	// VisTertiary6								= #5C5C5C								// VisaBrandTertiary6
-	// VisTertiary5								= #979797								// VisaBrandTertiary5
-	// VisTertiary4								= #B9B9B9								// VisaBrandTertiary4
-	// VisTertiary3								= #DEDEDE								// VisaBrandTertiary3
-	// VisTertiary2								= #EEEEEE								// VisaBrandTertiary2
-	// VisTertiary1								= #F7F7F7								// VisaBrandTertiary1
+	// VisSecondary								= #FCC015								// VisaBrandSecondary		/// VT|1↓→6|1→5|!|_7_(.)|	/// coint|1↓→6|1→4|_7_.|		/// ok|1↓→6|1→4|.|_1_|			/// |1↓→6|1→4|!|_7_|		/// |1→6|1→↓6|_1_|  #910
+	// VisSecondaryLight						= #FFD700								// VisaBrandSecondaryLight	/// |1↓#→6|1↓→6|_789_|-!|	/// |1↓→6|1→4|-|_74_|
+	// VisSecondaryDark							= #F7B600								// VisaBrandSecondaryDark	/// @|1↓→6|1→4|!|_789_|
+	// VisTertiary7								= #2C2C2C								// VisaBrandTertiary7		/// @|1↓→6|1→6|.!|_4_(.)|
+	// VisTertiary6								= #5C5C5C								// VisaBrandTertiary6		/// @|1↓→9|1→6|.|_7_|		/// ()@|1↓→9|1→6|!|_7_|		/// bix|1↓→6|1→3|.-|_1_|
+	// VisTertiary5								= #979797								// VisaBrandTertiary5		/// @|1↓→9|1→5|.!|_7_|
+	// VisTertiary4								= #B9B9B9								// VisaBrandTertiary4		/// @|1↓→6|1→5|-|_714_|		/// bix|1↓→3|1→5|.-|_789_|
+	// VisTertiary3								= #DEDEDE								// VisaBrandTertiary3		/// @|1→↓6|1→5|_741_|
+	// VisTertiary2								= #EEEEEE								// VisaBrandTertiary2									/// ap|1→↓6|1→5|!|_7_|
+	// VisTertiary1								= #F7F7F7								// VisaBrandTertiary1		/// @|1→↑12|.-|_741_|		/// gt|1→↑10|.-|_6_|
 
 /// ─── Latam ───
 	// LatRedBackground							= rgb(232, 17, 75)						// Latam Red Background
@@ -453,7 +453,7 @@ double_smooth(src, tsiDivInputLong, tsiDivInputShort) =>
 tsiDiFuPC							= ta.change(price)
 tsiDiFuDouble_smoothed_price		= double_smooth(tsiDiFuPC, tsiDivInputLong, tsiDivInputShort)
 tsiDiFuDouble_smoothed_abs_price	= double_smooth(math.abs(tsiDiFuPC), tsiDivInputLong, tsiDivInputShort)
-tsiDiFuTsi_value					= 135 * (tsiDiFuDouble_smoothed_price / tsiDiFuDouble_smoothed_abs_price) + 50
+tsiDiFuTsi_value					= 125 * (tsiDiFuDouble_smoothed_price / tsiDiFuDouble_smoothed_abs_price) + 50
 // tsiDiFuTsi_value					= tsiDiFuDouble_smoothed_price / tsiDiFuDouble_smoothed_abs_price * 65 + 50
 tsiDiFuLagLine						= ta.ema(tsiDiFuTsi_value, tsiDivInputSignal)
 
@@ -637,7 +637,7 @@ huPeFuUpperO			= huPeFuBasis + huPeFuDEV * hullPercVarsMULTExt
 huPeFuLowerO			= huPeFuBasis - huPeFuDEV * hullPercVarsMULTExt
 
 huPeFuUpperOuter		= 100 * (huPeFuUpperO - huPeFuLower)/(huPeFuUpper - huPeFuLower)
-huPeFunPosBetweenBands	= 65 * (hullPercVarsSRC - huPeFuLower)/(huPeFuUpper - huPeFuLower) + 20
+huPeFunPosBetweenBands	= 75 * (hullPercVarsSRC - huPeFuLower)/(huPeFuUpper - huPeFuLower) + 20
 huPeFuLowerOuter		= 100 * (huPeFuLowerO - huPeFuLower)/(huPeFuUpper - huPeFuLower)
 
 huPeFuSmoothed			= ta.hma(ta.linreg(huPeFunPosBetweenBands, 7, 0),33)
