@@ -2,11 +2,14 @@
 /// ║  AI Adaptive Money Flow Index	║
 /// ╔═══════════════════════════════╗
 /// ║  Tsi & Divergences			║
-/// ║  @	Allen.					║
+/// ╔═══════════════════════════════╗
+/// ║	Hullinger Percentile Osc	║
+/// ║	@	Allen.					║
+/// ║	©	AlgoAlpha				║
 /// ╚═══════════════════════════════╝
 
 //@version=5
-indicator("MFI Adaptive & TSI Diverg & Hullinger [Allen]", "MFI & TSI & Hull", format = format.price, precision = 4)
+indicator("MFI Adaptive & TSI Diverg & Hullinger [Allen]", "MFI & TSI & Hull", overlay = false, format = format.price, precision = 4, explicit_plot_zorder = true)
 
 //// ───────────────────────
 /// ─── Colors ──────
@@ -34,7 +37,7 @@ indicator("MFI Adaptive & TSI Diverg & Hullinger [Allen]", "MFI & TSI & Hull", f
 /// ─── Ameritrade ───
 	// AmeTrWhite								= #FFFFFF								// AmeritradeWhite
 	// AmeTrGrayPlatinum						= #F7F7F7								// AmeritradeGrayPlatinum
-	// AmeTrGrayNickel							= #F1F1F1								// AmeritradeGrayNickel
+AmeTrGrayNickel							= #F1F1F1								// AmeritradeGrayNickel
 	// AmeTrGrayNickelDark20					= #C0C0C0								// AmeritradeGrayNickelDark20
 	// AmeTrGrayAluminum						= #E6E7E9								// AmeritradeGrayAluminum
 	// AmeTrGrayAsh								= #D8D8D8								// AmeritradeGrayAsh
@@ -209,10 +212,10 @@ indicator("MFI Adaptive & TSI Diverg & Hullinger [Allen]", "MFI & TSI & Hull", f
 	// EEGFucsia50								= #FE0CB6								// EEGFucsia50
 
 /// ─── Bright Line ───
-	// BrLiYel10								= #FBFD73								// BrightLine Yellow Light
+BrLiYel10								= #FBFD73								// BrightLine Yellow Light
 	// BrLiYel20								= #FFFD52								// BrightLine Yellow Light
 	// BrLiYel30								= #FDF43C								// BrightLineB Yellow High
-	// BrLiYel40								= #FEF301								// BrightLineBackground Yellow Nit
+BrLiYel40								= #FEF301								// BrightLineBackground Yellow Nit
 	// BrLiYel50								= #FFDB00								// BrightLineBackground Yellow Base
 
 /// ─── Waves Beh ───
@@ -247,7 +250,7 @@ PlatziGreen30							= #ADEB42								// PlatziGreen60
 	// PlatziGreen40							= #85C638								// PlatziGreen60
 	// PlatziGreen50							= #95CA3E								// PlatziGreen50
 	// PlatziGreen60							= #98CA3F								// PlatziGreen40
-	// PlatziBlue50								= #24385B								// PlatziBlue50
+PlatziBlue50							= #24385B								// PlatziBlue50
 PlatziBlue70							= #121F3D								// PlatziBlue70
 	// PlatziBlue80								= #0C1633								// PlatziBlue80
 
@@ -375,32 +378,18 @@ adapMonIfCOLOR0				= adapMonVarOSC > adapMonArrNE_NEW ? color.new(adapMonColorLo
 adapMonPlotMAIN		= plot	(adapMonIfVAL,						color = adapMonIfCOLOR100)
 adapMonPlotMID		= plot	(adapMonVarADJ ? adapMonVarNeutral : adapMonArrNE_NEW,		color = adapMonIfCOLOR100)
 
-plot				(adapMonVarADJ ? 100 : adapMonArrOB_NEW,	color =  color.from_gradient(adapMonVarOSC, adapMonArrNE_NEW, adapMonVarADJ ? 100 : adapMonArrOB_NEW, color.new(color.gray, 70), color.new(adapMonColorShort, 0)), linewidth = 3)
-plot				(adapMonVarADJ ? 0 : adapMonArrOS_NEW,		color = color.from_gradient(adapMonVarOSC, adapMonVarADJ ? 0 : adapMonArrOS_NEW, adapMonArrNE_NEW, color.new(adapMonColorLong, 0), color.new(color.gray, 70)), linewidth = 3)
+plot				(adapMonVarADJ ? 100 : adapMonArrOB_NEW,	color =  color.from_gradient(adapMonVarOSC, adapMonArrNE_NEW, adapMonVarADJ ? 100 : adapMonArrOB_NEW, color.new(color.gray, 70), color.new(adapMonColorShort, 0)), linewidth = 6)
+plot				(adapMonVarADJ ? 0 : adapMonArrOS_NEW,		color = color.from_gradient(adapMonVarOSC, adapMonVarADJ ? 0 : adapMonArrOS_NEW, adapMonArrNE_NEW, color.new(adapMonColorLong, 0), color.new(color.gray, 70)), linewidth = 6)
 
-plotchar			(math.abs(adapMonVarOSC - adapMonArrNE_NEW) < math.abs(adapMonVarOSC - adapMonArrOB_NEW) and math.abs(adapMonVarOSC - adapMonArrNE_NEW) < math.abs(adapMonVarOSC - adapMonArrOS_NEW) ? adapMonIfVAL + (adapMonVarOSC > adapMonArrNE_NEW ? adapMonFuncST*adapMonVarMLT : -adapMonFuncST*adapMonVarMLT) : na, "Ranging Classification", "0", location.absolute, adapMonIfCOLOR0)
-plotchar			(math.abs(adapMonVarOSC - adapMonArrOB_NEW) < math.abs(adapMonVarOSC - adapMonArrNE_NEW) and math.abs(adapMonVarOSC - adapMonArrOB_NEW) < math.abs(adapMonVarOSC - adapMonArrOS_NEW) ? adapMonIfVAL + (adapMonVarOSC > adapMonArrNE_NEW ? adapMonFuncST*adapMonVarMLT : -adapMonFuncST*adapMonVarMLT) : na, "Up-Trend Classification", "+", location.absolute, adapMonIfCOLOR0)
-plotchar			(math.abs(adapMonVarOSC - adapMonArrOS_NEW) < math.abs(adapMonVarOSC - adapMonArrOB_NEW) and math.abs(adapMonVarOSC - adapMonArrOS_NEW) < math.abs(adapMonVarOSC - adapMonArrNE_NEW) ? adapMonIfVAL + (adapMonVarOSC > adapMonArrNE_NEW ? adapMonFuncST*adapMonVarMLT : -adapMonFuncST*adapMonVarMLT) : na, "Down-Trend Classification", "-", location.absolute, adapMonIfCOLOR0)
+// plotchar			(math.abs(adapMonVarOSC - adapMonArrNE_NEW) < math.abs(adapMonVarOSC - adapMonArrOB_NEW) and math.abs(adapMonVarOSC - adapMonArrNE_NEW) < math.abs(adapMonVarOSC - adapMonArrOS_NEW) ? adapMonIfVAL + (adapMonVarOSC > adapMonArrNE_NEW ? adapMonFuncST*adapMonVarMLT : -adapMonFuncST*adapMonVarMLT) : na, "Lateral", "══", location.absolute, adapMonIfCOLOR0)
+// plotchar			(math.abs(adapMonVarOSC - adapMonArrOB_NEW) < math.abs(adapMonVarOSC - adapMonArrNE_NEW) and math.abs(adapMonVarOSC - adapMonArrOB_NEW) < math.abs(adapMonVarOSC - adapMonArrOS_NEW) ? adapMonIfVAL + (adapMonVarOSC > adapMonArrNE_NEW ? adapMonFuncST*adapMonVarMLT : -adapMonFuncST*adapMonVarMLT) : na, "Tendencia Alcista", "──", location.absolute, adapMonIfCOLOR0)
+// plotchar			(math.abs(adapMonVarOSC - adapMonArrOS_NEW) < math.abs(adapMonVarOSC - adapMonArrOB_NEW) and math.abs(adapMonVarOSC - adapMonArrOS_NEW) < math.abs(adapMonVarOSC - adapMonArrNE_NEW) ? adapMonIfVAL + (adapMonVarOSC > adapMonArrNE_NEW ? adapMonFuncST*adapMonVarMLT : -adapMonFuncST*adapMonVarMLT) : na, "Tendencia Bajista", "──", location.absolute, adapMonIfCOLOR0)
 
-plotchar			(ta.crossunder(adapMonVarOSC, adapMonArrOB_NEW) ? (adapMonVarADJ ? 100 : adapMonArrOB_NEW) + 10 : na,	"Corrección Venta",		"▼",	location.absolute, adapMonColorShort, size = size.small)
-plotchar			(ta.crossover(adapMonVarOSC, adapMonArrOS_NEW) ? (adapMonVarADJ ? 0 : adapMonArrOS_NEW) - 10 : na,		"Corrección Compra",	"▲",	location.absolute, adapMonColorLong, size = size.small)
+plotchar			(ta.crossunder(adapMonVarOSC, adapMonArrOB_NEW) ? (adapMonVarADJ ? 100 : adapMonArrOB_NEW) + 10 : na,	"Corrección Venta",		"▼",	location.absolute, adapMonColorShort, size = size.tiny)
+plotchar			(ta.crossover(adapMonVarOSC, adapMonArrOS_NEW) ? (adapMonVarADJ ? 0 : adapMonArrOS_NEW) - 10 : na,		"Corrección Compra",	"▲",	location.absolute, adapMonColorLong, size = size.tiny)
 
 fill				(adapMonPlotMID, adapMonPlotMAIN, color = adapMonIfCOLOR100, title = "Area de Tendencia")
 fill				(adapMonPlotMID, adapMonPlotMAIN, adapMonIfVAL, adapMonVarADJ ? 50 : adapMonArrNE_NEW, color.new(chart.bg_color, 1000), adapMonVarOSC > adapMonArrNE_NEW ? adapMonColorLong : adapMonColorShort)
-
-//Alerts
-alertcondition(ta.crossover(adapMonVarOSC, adapMonArrNE_NEW), "Compra trend")
-alertcondition(ta.crossunder(adapMonVarOSC, adapMonArrNE_NEW), "Venta trend")
-
-alertcondition(ta.crossover(adapMonVarOSC, adapMonArrOS_NEW), "Compra Reversa")
-alertcondition(ta.crossunder(adapMonVarOSC, adapMonArrOB_NEW), "Venta Reversa")
-
-alertcondition(ta.crossover(adapMonVarOSC, adapMonArrOB_NEW), "SobreCompra")
-alertcondition(ta.crossunder(adapMonVarOSC, adapMonArrOS_NEW), "SobreVenta")
-
-alertcondition(math.abs(adapMonVarOSC - adapMonArrNE_NEW) < math.abs(adapMonVarOSC - adapMonArrOB_NEW) and math.abs(adapMonVarOSC - adapMonArrNE_NEW) < math.abs(adapMonVarOSC - adapMonArrOS_NEW), "MFI Classification Ranging")
-alertcondition(math.abs(adapMonVarOSC - adapMonArrOB_NEW) < math.abs(adapMonVarOSC - adapMonArrNE_NEW) and math.abs(adapMonVarOSC - adapMonArrOB_NEW) < math.abs(adapMonVarOSC - adapMonArrOS_NEW), "MFI Classification Up-Trend")
-alertcondition(math.abs(adapMonVarOSC - adapMonArrOS_NEW) < math.abs(adapMonVarOSC - adapMonArrOB_NEW) and math.abs(adapMonVarOSC - adapMonArrOS_NEW) < math.abs(adapMonVarOSC - adapMonArrNE_NEW), "MFI Classification Down-Trend")
 
 //// ─────────────────────────────────────────────────────────────────────
 //// ─────────────────────────────────────────────────────────────────────
@@ -410,29 +399,34 @@ alertcondition(math.abs(adapMonVarOSC - adapMonArrOS_NEW) < math.abs(adapMonVarO
 /// ║  Tsi & Divergences				║
 /// ║  @	Allen.						║
 /// ╚═══════════════════════════════════╝
+/// ─── Colors ───
+
+/// ─── Colors ───
 
 //// ───────────────────────
 /// ─── Vars ───
 //// ───────────────────────
 
 /// ─── Colors ───
-tsiDivColorBaseBull		= PlatziGreen30
-tsiDivColorBaseBear		= VictSecFucsia50
+tsiDivColorBaseBull			= PlatziGreen30
+tsiDivColorBaseBear			= VictSecFucsia50
 
-tsiDivColorBull			= color.new(PlatziGreen30,		0)
-tsiDivColorBear			= color.new(VictSecFucsia50,	0)
-tsiDivColorHiddenBull	= color.new(PlatziGreen30,		30)
-tsiDivColorHiddenBear	= color.new(VictSecFucsia50,	30)
-tsiDivColorText			= color.new(PlatziBlue70,		0)
-tsiDivColorNone			= color.new(AllenSky10,			100)
-tsiDivColorTSI			= color.new(AllenSky10,			20)
+tsiDivColorBull				= color.new(AllenMint60,		0)
+tsiDivColorBear				= color.new(AllenSky10,			0)
+tsiDivColorDiverBull		= color.new(PlatziGreen30,		0)
+tsiDivColorDiverBear		= color.new(VictSecFucsia50,	0)
+tsiDivColorHiddenBull		= color.new(AllenMint60,		55)
+tsiDivColorHiddenBear		= color.new(AllenSky10,			55)
+tsiDivColorText				= color.new(PlatziBlue70,		0)
+tsiDivColorNone				= color.new(AllenSky10,			100)
+tsiDivColorTSI				= color.new(AllenSky10,			20)
 
 /// ─── Inputs ───
-tsiDivInputLong			= input(defval = 6,		title = 'Longitud de Compra')
-tsiDivInputShort		= input(defval = 13,	title = 'Longitud de Venta')
-tsiDivInputSignal		= input(defval = 4,		title = 'Longitud de la SEÑAL')
+tsiDivInputLong				= input(defval = 6,		title = 'Longitud de Compra')
+tsiDivInputShort			= input(defval = 13,	title = 'Longitud de Venta')
+tsiDivInputSignal			= input(defval = 4,		title = 'Longitud de la SEÑAL')
 
-price					= close[0]
+price						= close[0]
 
 /// ─── divergences ───
 tsiDivDiverLBR				= input(defval = 5,		title = 'Corrección a la derecha')
@@ -459,15 +453,18 @@ double_smooth(src, tsiDivInputLong, tsiDivInputShort) =>
 tsiDiFuPC							= ta.change(price)
 tsiDiFuDouble_smoothed_price		= double_smooth(tsiDiFuPC, tsiDivInputLong, tsiDivInputShort)
 tsiDiFuDouble_smoothed_abs_price	= double_smooth(math.abs(tsiDiFuPC), tsiDivInputLong, tsiDivInputShort)
-tsiDiFuTsi_value					= 68 * (tsiDiFuDouble_smoothed_price / tsiDiFuDouble_smoothed_abs_price) + 50
+tsiDiFuTsi_value					= 135 * (tsiDiFuDouble_smoothed_price / tsiDiFuDouble_smoothed_abs_price) + 50
 // tsiDiFuTsi_value					= tsiDiFuDouble_smoothed_price / tsiDiFuDouble_smoothed_abs_price * 65 + 50
 tsiDiFuLagLine						= ta.ema(tsiDiFuTsi_value, tsiDivInputSignal)
 
 /// ─── Plot data ───
-tsiDiFuFillColor					= tsiDivShowCloudOn and tsiDiFuTsi_value > tsiDiFuLagLine ? tsiDivColorBull : tsiDivShowCloudOn and tsiDiFuTsi_value <= tsiDiFuLagLine ? tsiDivColorBear : na
+tsiDiFuFillColor					= tsiDivShowCloudOn and tsiDiFuTsi_value > tsiDiFuLagLine ? tsiDivColorDiverBull : tsiDivShowCloudOn and tsiDiFuTsi_value <= tsiDiFuLagLine ? tsiDivColorDiverBear : na
 
-tsiDiFuLine1						= plot(tsiDiFuTsi_value,	color = color.new(tsiDiFuFillColor, 50))
-tsiDiFuLine2						= plot(ta.ema(tsiDiFuTsi_value,	tsiDivInputSignal),	color = color.new(tsiDiFuFillColor, 50))
+plot(tsiDiFuTsi_value,				color = color.new(PlatziBlue70, 60),	linewidth = 6)
+plot(ta.ema(tsiDiFuTsi_value,		tsiDivInputSignal),	color = color.new(PlatziBlue70, 60),	linewidth = 6)
+
+tsiDiFuLine1						= plot(tsiDiFuTsi_value,	color = color.new(tsiDiFuFillColor, 30),	linewidth = 2)
+tsiDiFuLine2						= plot(ta.ema(tsiDiFuTsi_value,	tsiDivInputSignal),	color = color.new(tsiDiFuFillColor, 30),	linewidth = 2)
 hline(0,	title = 'Zero',	color = color.new(#000000, 50),	editable = true)
 
 /// ─── Colour fill ───
@@ -507,8 +504,6 @@ plot(tsiDiFuPLFound ? tsiDiFuOSC[tsiDivDiverLBR] : na, offset = -tsiDivDiverLBR,
 
 plotshape(tsiDiInsBULLCond ? tsiDiFuOSC[tsiDivDiverLBR] : na, offset = -tsiDivDiverLBR, title = 'Etiqueta de Compra', text = ' Compra ', style = shape.labelup, location = location.absolute, color = tsiDivColorBull, textcolor = tsiDivColorText)
 
-alertcondition(tsiDiInsBULLCond, title = 'TSI ha encontrado una divergencia Alcista', message = 'Verifique en gráfico por confirmación de COMPRA por TSI')
-
 //// ───────────────────────
 /// ─── Hidden Bullish ───
 //// ───────────────────────
@@ -523,9 +518,7 @@ tsiDiInsHiddenBullCond				= tsiDivShowPlotHiddenBull and tsiDiInsPRICEHL and tsi
 
 plot(tsiDiFuPLFound ? tsiDiFuOSC[tsiDivDiverLBR] : na, offset = -tsiDivDiverLBR, title = 'Confirmación de Compra scalp', linewidth = 2, color = tsiDiInsHiddenBullCond ? tsiDivColorHiddenBull : tsiDivColorNone)
 
-plotshape(tsiDiInsHiddenBullCond ? tsiDiFuOSC[tsiDivDiverLBR] : na, offset = -tsiDivDiverLBR, title = 'Etiqueta de Compra scalp', text = ' Compra Scalp ', style = shape.labelup, location = location.absolute, color=tsiDivColorBull, textcolor = tsiDivColorText)
-
-alertcondition(tsiDiInsHiddenBullCond, title = 'TSI ha encontrado una divergencia Alcista oculta', message = 'Verifique en gráfico por confirmación de COMPRA scalp por TSI por TSI')
+plotshape(tsiDiInsHiddenBullCond ? tsiDiFuOSC[tsiDivDiverLBR] : na, offset = -tsiDivDiverLBR, title = 'Etiqueta de Compra scalp', text = ' △ scalp ', style = shape.labelup, location = location.absolute, color=tsiDivColorHiddenBull, textcolor = tsiDivColorText)
 
 //// ───────────────────────
 /// ─── Regular Bearish ───
@@ -543,8 +536,6 @@ plot(tsiDiFuPHFound ? tsiDiFuOSC[tsiDivDiverLBR] : na, offset = -tsiDivDiverLBR,
 
 plotshape(tsiDiInsBEARCond ? tsiDiFuOSC[tsiDivDiverLBR] : na, offset = -tsiDivDiverLBR, title = 'Etiqueta de Venta', text = ' Venta ', style = shape.labeldown, location = location.absolute, color = tsiDivColorBear, textcolor = tsiDivColorText)
 
-alertcondition(tsiDiInsBEARCond, title = 'TSI ha encontrado una divergencia Bajista', message = 'Verifique en gráfico por confirmación de VENTA por TSI')
-
 //// ───────────────────────
 /// ─── Hidden Bearish ───
 //// ───────────────────────
@@ -559,6 +550,151 @@ tsiDiInsHiddenBearCond				= tsiDivShowPlotHiddenBear and tsiDiInsPRICELH and tsi
 
 plot(tsiDiFuPHFound ? tsiDiFuOSC[tsiDivDiverLBR] : na, offset = -tsiDivDiverLBR, title = 'Confirmación de Venta scalp', linewidth = 2, color = tsiDiInsHiddenBearCond ? tsiDivColorHiddenBear : tsiDivColorNone)
 
-plotshape(tsiDiInsHiddenBearCond ? tsiDiFuOSC[tsiDivDiverLBR] : na, offset = -tsiDivDiverLBR, title = 'Etiqueta de Venta scalp', text = ' Venta Scalp ', style = shape.labeldown, location = location.absolute, color = tsiDivColorBear, textcolor = tsiDivColorText)
+plotshape(tsiDiInsHiddenBearCond ? tsiDiFuOSC[tsiDivDiverLBR] : na, offset = -tsiDivDiverLBR, title = 'Etiqueta de Venta scalp', text = ' ▽ scalp ', style = shape.labeldown, location = location.absolute, color = tsiDivColorHiddenBear, textcolor = tsiDivColorText)
 
-alertcondition(tsiDiInsHiddenBearCond, title = 'TSI ha encontrado una divergencia Bajista oculta', message = 'Verifique en gráfico por confirmación de VENTA scalp por TSI')
+//// ─────────────────────────────────────────────────────────────────────
+//// ─────────────────────────────────────────────────────────────────────
+//// ─────────────────────────────────────────────────────────────────────
+
+/// ╔═══════════════════════════════╗
+/// ║	Hullinger Percentile Osc	║
+/// ║	@	Allen.					║
+/// ╚═══════════════════════════════╝
+
+//// ─────────────────────────────────────────────────────────────────────
+
+//// ───────────────────────
+/// ─── Hullinger ───
+/// ─── Variables ───
+//// ───────────────────────
+
+hullPercToolMod			= "El modo de visualización, el modo Swing se utiliza para atrapar tendencias de swing y el modo Contrarian es para atrapar reversiones"
+hullPercToolLbL			= "Cuanto mayor sea este número, menos sensible será la detección de la divergencia. Un número menor detectará divergencias más pequeñas y/o a corto plazo"
+hullPercToolLbR			= "Este número es la cantidad de barras que el indicador esperará la confirmación para trazar las divergencias. Cuanto mayor sea el número, mayor será el retraso de la señal, pero menor será el número de señales falsas. Establézcalo en 0 si no desea ningún retraso en absoluto"
+
+hullPercGroupApar		= "Apariencia"
+hullPercGroupSett		= "Configuración Hullinger"
+hullPercGroupOsc		= "Oscilador Hullinger"
+
+hullPercColorLong		= input.color(AllenMint60,				title = "Compra",															group = hullPercGroupApar,	inline = "Colors")
+hullPercColorShort		= input.color(AllenSky10,				title = "Venta",															group = hullPercGroupApar,	inline = "Colors")
+hullPercColorContrar	= input.color(BrLiYel10,				title = "Contrarian",														group = hullPercGroupApar,	inline = "Colors")
+huPeColorLine			= input		(BrLiYel40)
+
+huPeColorUp				= color.new(BrLiYel40,			70)
+huPeColorDn				= color.new(BrLiYel40,			70)
+huPeColorHiddenUp		= color.new(hullPercColorLong,	80)
+huPeColorHiddenDn		= color.new(hullPercColorShort,	80)
+huPeColorText			= color.new(PlatziBlue70,		0)
+huPeColorNONE			= color.new(AmeTrGrayNickel,	100)
+
+hullPercVarsLength		= input.int		(defval = 40,			title = "Longitud Principal",			minval = 1,							group = hullPercGroupSett)
+hullPercVarsSRC			= input			(defval = hlc3,			title = "Fuente",															group = hullPercGroupSett)
+hullPercVarsMULT		= input.float	(defval = 2.0,			title = "X StdDev",						minval = 0.001,	maxval = 50,		group = hullPercGroupSett,	tooltip = "Multiplicador para el ancho de las bandas internas")
+hullPercVarsMULTExt		= input.float	(defval = 1.5,			title = "X Bandas extendidas",			minval=0.001,	maxval=50,			group = hullPercGroupSett,	tooltip = "Multiplicador para el ancho de las bandas externas")
+hullPercVarsMOD			= input.string	(defval = "Contrarian",	title = "Modo de oscilador",			options = ["Swing", "Contrarian"],	group = hullPercGroupOsc,	tooltip = hullPercToolMod)
+hullPercVarsLAG			= input.int		(defval = 2,			title = "Retraso de oscilaciones",		minval = 1,							group = hullPercGroupOsc)
+
+hullPercVarslbL			= input			(defval = 20,			title = "Longitud de detección de pivote de divergencia",					group = hullPercGroupOsc,	tooltip = hullPercToolLbL,		display = display.data_window)
+hullPercVarslbR			= input			(defval = 1,			title = "Longitud de confirmación de pivote de divergencia",				group = hullPercGroupOsc,	tooltip = hullPercToolLbR,		display = display.data_window)
+
+hullPercShowLongPlot	= input			(defval = true,			title = "Mostrar divergencias alcistas",									group = hullPercGroupApar)
+hullPercShowShortPlot	= input			(defval = true,			title = "Mostrar Trazar divergencias bajista",								group = hullPercGroupApar)
+
+//// ───────────────────────
+/// ─── Hullinger ───
+/// ─── Functions ───
+//// ───────────────────────
+
+/// ─── Modified Stdev
+HullPercFunctionIsZero(val, eps) => math.abs(val) <= eps
+
+HullPercFunctionSUM(fst, snd) =>
+	huPeFuEPS			= 1e-10
+	huPeFuRES			= fst + snd
+	if HullPercFunctionIsZero(huPeFuRES, huPeFuEPS)
+		huPeFuRES := 0
+	else
+		if not HullPercFunctionIsZero(huPeFuRES, 1e-4)
+			huPeFuRES := huPeFuRES
+		else
+			15
+
+HullPercFunctionSUMPine_STDEV(hullPercVarsSRC, hullPercVarsLength) =>
+	huPeFuAVG			= ta.hma(hullPercVarsSRC, hullPercVarsLength)
+	sumOfSquareDeviations = 0.0
+	for i = 0 to hullPercVarsLength - 1
+		huPeFuSum = HullPercFunctionSUM(hullPercVarsSRC[i], -huPeFuAVG)
+		sumOfSquareDeviations := sumOfSquareDeviations + huPeFuSum * huPeFuSum
+
+	stdev	= math.sqrt(sumOfSquareDeviations / hullPercVarsLength)
+
+huPeFuBasis				= ta.sma(hullPercVarsSRC, hullPercVarsLength)
+huPeFuDEV				= hullPercVarsMULT * HullPercFunctionSUMPine_STDEV(hullPercVarsSRC, hullPercVarsLength)
+huPeFuUpper				= huPeFuBasis + huPeFuDEV
+huPeFuLower				= huPeFuBasis - huPeFuDEV
+huPeFuUpperO			= huPeFuBasis + huPeFuDEV * hullPercVarsMULTExt
+huPeFuLowerO			= huPeFuBasis - huPeFuDEV * hullPercVarsMULTExt
+
+huPeFuUpperOuter		= 100 * (huPeFuUpperO - huPeFuLower)/(huPeFuUpper - huPeFuLower)
+huPeFunPosBetweenBands	= 65 * (hullPercVarsSRC - huPeFuLower)/(huPeFuUpper - huPeFuLower) + 20
+huPeFuLowerOuter		= 100 * (huPeFuLowerO - huPeFuLower)/(huPeFuUpper - huPeFuLower)
+
+huPeFuSmoothed			= ta.hma(ta.linreg(huPeFunPosBetweenBands, 7, 0),33)
+
+HullPercFunctionOSCIL(type) =>
+	switch type
+		"Swing"			=> huPeFuSmoothed
+		"Contrarian"	=> huPeFunPosBetweenBands
+
+
+huPeFuUpperWithins		= array.new_float()
+huPeFuLowerWithins		= array.new_float()
+
+for i = 1 to 3
+	v = (huPeFuUpperOuter-100)/4 * i + 100
+	huPeFuUpperWithins.unshift(v)
+	v1 = -(0-huPeFuLowerOuter)/4 * i
+	huPeFuLowerWithins.unshift(v1)
+
+//// ───────────────────────
+/// ─── Hullinger ───
+/// ─── Visual ──────
+//// ───────────────────────
+
+huPeFuOscCOL								= hullPercVarsMOD == "Swing" ? (huPeFuSmoothed > huPeFuSmoothed[hullPercVarsLAG] ? hullPercColorLong : hullPercColorShort) : hullPercColorContrar
+huPeFuOscOSC								= plot(HullPercFunctionOSCIL(hullPercVarsMOD),				color = color.new(huPeFuOscCOL, 30))
+huPeFuOscLAG								= plot(HullPercFunctionOSCIL(hullPercVarsMOD)[hullPercVarsLAG],			display =  display.none)
+
+fill(huPeFuOscOSC, huPeFuOscLAG,			color.new(huPeFuOscCOL, 75),				"Relleno Oscilador")
+
+plotchar(ta.cross(HullPercFunctionOSCIL(hullPercVarsMOD), HullPercFunctionOSCIL(hullPercVarsMOD)[hullPercVarsLAG])		and hullPercVarsMOD == "Swing"		? HullPercFunctionOSCIL(hullPercVarsMOD)[hullPercVarsLAG] : na,									"Oscilador Swing",				"●",	location.absolute,	huPeFuOscCOL,	size = size.tiny)
+plotchar(ta.crossunder(HullPercFunctionOSCIL(hullPercVarsMOD), 100)							and hullPercVarsMOD == "Contrarian"	? math.max(HullPercFunctionOSCIL(hullPercVarsMOD)[1], huPeFuUpperOuter) + (huPeFuUpperOuter-huPeFuLowerOuter) * 0.2 : na,	"Corrección bajista suave",		"▽",	location.absolute,	hullPercColorShort,		size = size.tiny)
+plotchar(ta.crossover(HullPercFunctionOSCIL(hullPercVarsMOD), 0)							and hullPercVarsMOD == "Contrarian"	? math.min(HullPercFunctionOSCIL(hullPercVarsMOD)[1], huPeFuLowerOuter) - (huPeFuUpperOuter-huPeFuLowerOuter) * 0.2 : na,	"Corrección alcista suave",		"△",	location.absolute,	hullPercColorLong,		size = size.tiny)
+
+plotchar(ta.crossunder(HullPercFunctionOSCIL(hullPercVarsMOD), huPeFuUpperOuter)			and hullPercVarsMOD == "Contrarian"	? math.max(HullPercFunctionOSCIL(hullPercVarsMOD)[1], huPeFuUpperOuter) + (huPeFuUpperOuter-huPeFuLowerOuter) * 0.3 : na,	"Correción Bajista Fuerte",		"▼",	location.absolute,	hullPercColorShort,		size = size.tiny)
+plotchar(ta.crossover(HullPercFunctionOSCIL(hullPercVarsMOD), huPeFuLowerOuter)				and hullPercVarsMOD == "Contrarian"	? math.min(HullPercFunctionOSCIL(hullPercVarsMOD)[1], huPeFuLowerOuter) - (huPeFuUpperOuter-huPeFuLowerOuter) * 0.3 : na,	"Correción Alcista Fuerte",		"▲",	location.absolute,	hullPercColorLong,		size = size.tiny)
+
+huPeFuPLFound								= na(ta.pivotlow(HullPercFunctionOSCIL(hullPercVarsMOD), hullPercVarslbL, hullPercVarslbR)) ? false : true
+huPeFuPHFound								= na(ta.pivothigh(HullPercFunctionOSCIL(hullPercVarsMOD), hullPercVarslbL, hullPercVarslbR)) ? false : true
+
+HullPercFuntionInRange(cond) =>
+	huPeVaBars = ta.barssince(cond == true)
+	-80 <= huPeVaBars and huPeVaBars <= 80
+
+/// ─── Regular Long	
+huPeFuOscHL									= HullPercFunctionOSCIL(hullPercVarsMOD)[hullPercVarslbR] > ta.valuewhen(huPeFuPLFound, HullPercFunctionOSCIL(hullPercVarsMOD)[hullPercVarslbR], 1) and HullPercFuntionInRange(huPeFuPLFound[1])
+huPeFuPriceLL								= low[hullPercVarslbR] < ta.valuewhen(huPeFuPLFound, low[hullPercVarslbR], 1)
+huPeFuCondLong								= hullPercShowLongPlot and huPeFuPriceLL and huPeFuOscHL and huPeFuPLFound
+
+plot(huPeFuPLFound							? HullPercFunctionOSCIL(hullPercVarsMOD)[hullPercVarslbR] : na,		offset = -hullPercVarslbR,		title = "Compra",	linewidth = 2,		color = (huPeFuCondLong ? huPeColorUp : huPeColorNONE))
+// plotshape(huPeFuPLFound						? huPeFunPosBetweenBands[hullPercVarslbR] : na,		offset = -hullPercVarslbR,		title = "Etiqueta de Compra",	text = ' Compra Hull',	style = shape.labelup,	location = location.absolute,	color = huPeColorUp,	textcolor = huPeColorText)
+
+/// ─── Regular Short	
+huPeFuOscLH									= HullPercFunctionOSCIL(hullPercVarsMOD)[hullPercVarslbR] < ta.valuewhen(huPeFuPHFound, HullPercFunctionOSCIL(hullPercVarsMOD)[hullPercVarslbR], 1) and HullPercFuntionInRange(huPeFuPHFound[1])
+huPeFuPriceHH								= high[hullPercVarslbR] > ta.valuewhen(huPeFuPHFound, high[hullPercVarslbR], 1)
+huPeFuCondShort								= hullPercShowShortPlot and huPeFuPriceHH and huPeFuOscLH and huPeFuPHFound
+
+plot(huPeFuPHFound							? HullPercFunctionOSCIL(hullPercVarsMOD)[hullPercVarslbR] : na,		offset = -hullPercVarslbR,		title = "Venta",	linewidth = 2,		color = (huPeFuCondShort ? huPeColorDn : huPeColorNONE))
+// plotshape(huPeFuPHFound						? huPeFunPosBetweenBands[hullPercVarslbR] : na,		offset = -hullPercVarslbR,		title = "Etiqueta de Venta",	text = ' Venta Hull',	style = shape.labeldown,	location = location.absolute,	color = huPeColorDn,	textcolor = huPeColorText)
+//// ─────────────────────────────────────────────────────────────────────
